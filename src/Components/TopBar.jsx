@@ -1,4 +1,4 @@
-const  TopBar = () => {
+const TopBar = () => {
     return ( 
     <div class="contentSection pl-4 pr-1">
     <div class="container pb-4 mb-5">

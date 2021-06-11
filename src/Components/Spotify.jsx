@@ -11,20 +11,27 @@ import { Row, Col } from 'react-bootstrap'
 import Home from './Home'
 import Artist from './Artist'
 import Album from './Album'
+import { useState} from 'react';
 /** </Pages> */
 
 
 const Spotify = () => {
+    const [query,updateQuery] = useState("")
+
+    const handleNewQuery = (query)=>{
+        console.log(query)
+        updateQuery(query)
+    }
     return ( 
         <>
         <div>
         <Row>
 
             <Col md={2} className="p-0">
-                <SideBar/>
+                <SideBar getQuery={(newQuery) => handleNewQuery(newQuery)}/>
             </Col>
             <Col md={10} style={{height:"100vh"}} className="homePageBody">
-                <Home/>
+                <Home newQuery={query}/>
             </Col>
 
         </Row>

@@ -1,33 +1,35 @@
+import SingleCover from './SingleCover'
+import {Component} from 'react'
 
 class Covers extends Component {
     state = { 
         covers:[],
-        query:"eminem"
+        query:this.props.query
      }
 
-    
-showCovers(){
-    let getData = this.state.covers
-    console.log(getData)
+
+ fetchMusic = async() =>{
+    let response = await fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${this.state.query}`)
+    let data = await response.json()
+    this.setState({covers:data.data})
+    console.log(this.state.covers)
 }
      componentDidMount= async () =>{
-        let response = await fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${this.state.query}`)
-        let data = await response.json()
-        this.setState({covers:data})
+        fetchMusic()
+         
+    
+    }
+    componentDidUpdate = async () =>{
+        fetchMusic()
     }
 
 
-
-    componentDidUpdate = async() =>{
-
-
-    }
     
     render() { 
         return ( 
             <div class="row mb-3 text-center">
-        {/**Covers Go here */}
-                </div>
+                    {this.state.covers && <SingleCover data={this.state.covers}/>}
+            </div>
          );
     }
 }

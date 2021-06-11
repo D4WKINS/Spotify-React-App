@@ -1,6 +1,22 @@
 import Logo from '../Img/Spotifylogo.png'
 import {Form, FormControl} from 'react-bootstrap'
-const  SideBar = () => {
+import {useState, useEffect} from 'react'
+
+const  SideBar = (props) => {
+
+  // const [search,setSearch] = useState("")
+
+  const handleSearchInput=(search)=>{
+    props.getQuery(search)
+  }
+
+  // useEffect(()=>{
+  //   handleSearchInput()
+  // },[search])
+
+
+  
+
     return ( 
         <div class="wrapperSideBar d-none d-sm-block d-md-block d-lg-block">
           <nav id="sidebar">
@@ -26,6 +42,7 @@ const  SideBar = () => {
                       placeholder="Search"
                       className="mr-2"
                       aria-label="Search"
+                      onChange ={(e) => handleSearchInput(e.target.value)}
                     />
                   </Form>
                 </li>
