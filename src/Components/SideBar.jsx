@@ -1,11 +1,13 @@
+import Logo from '../Img/Spotifylogo.png'
+import {Form, FormControl} from 'react-bootstrap'
 const  SideBar = () => {
     return ( 
         <div class="wrapperSideBar d-none d-sm-block d-md-block d-lg-block">
           <nav id="sidebar">
             <div class="sidebarHeadings">
               <div class="sidebar-header">
-                <img
-                  src="Img/Spotifylogo.png"
+                <img 
+                  src={Logo}
                   class="sidebarLogo"
                   alt="Spotify Logo White Trasparent"
                 />
@@ -17,7 +19,15 @@ const  SideBar = () => {
                   >
                 </li>
                 <li>
-                  <a href="#"><i class="fas fa-search"></i>Search</a>
+                  {/* <a href="#"><i class="fas fa-search"></i>Search</a> */}
+                  <Form className="d-flex px-3 py-3">
+                    <FormControl
+                      type="search"
+                      placeholder="Search"
+                      className="mr-2"
+                      aria-label="Search"
+                    />
+                  </Form>
                 </li>
                 <li>
                   <a class="" data-toggle="collapse" href="#collapsePages" role="button" aria-expanded="false" aria-controls="collapseExample">

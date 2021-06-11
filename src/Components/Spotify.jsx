@@ -1,27 +1,38 @@
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 /** <Navigation> */
-import TopBar from './Components/TopBar'
-import SideBar from './Components/SideBar'
+import TopBar from './TopBar'
+import SideBar from './SideBar'
 /** </Navigation> */ 
-import BottomBar from './Components/BotttomBar'
+import BottomBar from './BottomBar'
+import { Row, Col } from 'react-bootstrap' 
 
 /** <Pages> */
-import Index from './Components/TopBar'
-import Artist from './Components/Artist'
-import Album from './Components/Album'
+import Home from './Home'
+import Artist from './Artist'
+import Album from './Album'
 /** </Pages> */
+
 
 const Spotify = () => {
     return ( 
         <>
         <div>
-            <TopBar/>
-            
+        <Row>
 
+            <Col md={2} className="p-0">
+                <SideBar/>
+            </Col>
+            <Col md={10} style={{height:"100vh"}} className="homePageBody">
+                <Home/>
+            </Col>
+
+        </Row>
+        <Row md={12}>
+            <BottomBar/>
+        </Row>
         </div>
         </>
-
      );
 }
  
