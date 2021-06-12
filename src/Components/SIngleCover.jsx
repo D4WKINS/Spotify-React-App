@@ -1,13 +1,13 @@
 const SingleCover = (props) => {
 
             return props.data.map((song) =>
-                <div key={song.id} className="col col-12 col-sm-6 col-md-4 col-lg-2 p-2">
+                <div key={song.id} className="col col-12 col-sm-6 col-md-4 col-lg-2 p-2 ">
                 <img
                     src={song.album.cover}
                     className="img-fluid mb-1 homePageImage"
                     alt=""
                 />
-                <p className="mt-2 font-weight-bold">{song.album.title}</p>
+                <p className="mt-2 text-white font-weight-bold">{song.album.title}</p>
                 </div>
         )
 }

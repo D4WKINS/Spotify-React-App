@@ -1,4 +1,14 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from 'react'
+import * as Icon from "@fortawesome/free-regular-svg-icons"
+import * as SolidIcon from "@fortawesome/free-solid-svg-icons"
+import * as BrandIcon from "@fortawesome/free-brands-svg-icons"
+
+
+
 const BottomBar = () => {
+  const [spinHeart, setSpinHeart] = React.useState(false)
+  
     return ( 
         <div class="bottomMenuWrapper d-none d-sm-flex d-md-flex d-lg-flex">
         <div class="bottomMenuWrapperLeft">
@@ -12,8 +22,11 @@ const BottomBar = () => {
             </div>
             <div class="bottomMenuWrapperLeftIcons">
               <ul>
-                <li><i class="far fa-heart"></i></li>
+                <li><i class="far fa-heart"></i></li> {/**far = font awesome regular */} 
                 <li><i class="fas fa-laptop"></i></li>
+
+                <li className="text-white"><FontAwesomeIcon icon={spinHeart ? SolidIcon.faHeart : Icon.faHeart} spin={spinHeart} onClick={() => setSpinHeart(!spinHeart)} color={spinHeart ? "#F00" : "#FFF"} /> there should be a heart in front of me</li>
+                <li className="text-white"><FontAwesomeIcon icon={SolidIcon.faLaptop} /> there should be a laptop in front of me</li>
               </ul>
             </div>
           </div>
@@ -51,7 +64,7 @@ const BottomBar = () => {
         <div class="bottomMenuWrapperRight d-flex align-items-center">
           <div>
             <ul>
-              <li><i class="fas fa-bars"></i></li>
+              <li><i class="fas fa-bars"></i></li> // JAWOLL
               <li><i class="fas fa-laptop-code"></i></li>
               <li class="finalListLi">
                 <div class="d-flex align-items-center">

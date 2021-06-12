@@ -358,7 +358,7 @@
 .contentSection{
   position: absolute;
   right: 0px;
-  z-index: -1;
+  /* z-index: -1; */
   width: calc(100vw - 200px);
   box-sizing: border-box;
 }
@@ -673,7 +673,7 @@ nav {
   }
 
   .homePageBody{
-    height:100vh;
+    /* height:100vh; */
     background: rgb(71,101,139) !important;
     background: linear-gradient(124deg, rgba(71,101,139,1) 0%, rgba(36,68,107,1) 27%, rgba(10,20,31,1) 100%) !important;
   }

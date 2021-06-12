@@ -6,7 +6,6 @@ import Covers from './Covers'
      render() { 
          return ( 
             <>
-            <TopBar />
             <Covers query={this.props.newQuery}/>
             {/* <h2 className="text-white">Le Original Bad Ass :)</h2> */}
          

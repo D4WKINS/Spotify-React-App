@@ -29,7 +29,7 @@ class Covers extends Component {
                 this.fetchData()
         }
     componentDidUpdate = (prevProps,prevState)=>{
-        if(prevProps.query !== this.props.query){
+        if(prevProps.query !== this.props.query && this.props.query.length > 4){
             this.fetchData()
         console.log(prevProps)
         console.log(this.props.query)

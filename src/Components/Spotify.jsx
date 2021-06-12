@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 /** <Navigation> */
 import TopBar from './TopBar'
 import SideBar from './SideBar'
@@ -24,13 +24,13 @@ const Spotify = () => {
     }
     return ( 
         <>
-        <div>
         <Row>
 
             <Col md={2} className="p-0">
                 <SideBar getQuery={(newQuery) => handleNewQuery(newQuery)}/>
             </Col>
-            <Col md={10} style={{height:"100vh"}} className="homePageBody">
+            <Col md={10}  className="homePageBody">
+            <TopBar/>
                 <Home newQuery={query}/>
             </Col>
 
@@ -38,7 +38,6 @@ const Spotify = () => {
         <Row md={12}>
             <BottomBar/>
         </Row>
-        </div>
         </>
      );
 }
