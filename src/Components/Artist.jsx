@@ -1,223 +1,111 @@
-const  Artist = () => {
-    return ( 
-        <div class="contentSection">
-        <div class="container-img-artist">
-          <img
-            class="img-artist"
-            src="assets/queenonline-com-live-1986 - new1.jpg"
-            alt="queen"
-          />
-  
-          <p class="text-artist-listener text-muted text-center">
-            33,000,575 MONTHLY LISTENERS
-          </p>
-          <h1 class="text-artist-title text-white">Queen</h1>
-          <div class="btn-place text-center">
-            <button type="button" class="btnArtistPage btn-play">PLAY</button>
-            <button type="button" class="btnArtistPage btn-follow">FOLLOW</button>
-            <button type="button" class="btnArtistPage dots" title="More">
-              <svg
-                role="img"
-                height="32"
-                width="32"
-                viewBox="0 0 32 32"
-                class="Svg-ulyrgf-0 hJgLcF"
-              >
-                <path
-                  d="M5.998 13.999A2 2 0 105.999 18 2 2 0 005.998 14zm10.001 0A2 2 0 1016 18 2 2 0 0016 14zm10.001 0A2 2 0 1026.001 18 2 2 0 0026 14z"
-                ></path>
-              </svg>
-            </button>
+import React from "react";
+import AlbumCard from "./AlbumCard";
+import { Row, Col } from "react-bootstrap";
+
+class Artist extends React.Component {
+  state = {
+    artist: {},
+    songs: [],
+  };
+
+  componentDidMount = async () => {
+    let artistId = this.props.match.params.id;
+
+    let headers = new Headers({
+      "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+      "X-RapidAPI-Key": "c74a0a086emshf55ffb8dbdcb59ap17a486jsnb83bb4d3e387",
+    });
+
+    try {
+      let response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/deezer/artist/" + artistId,
+        {
+          method: "GET",
+          headers,
+        }
+      );
+
+      if (response.ok) {
+        let artist = await response.json();
+        this.setState(
+          {
+            artist,
+          },
+          async () => {
+            let tracksResponse = await fetch(
+              "https://striveschool-api.herokuapp.com/api/deezer/search?q=" +
+                artist.name,
+              {
+                method: "GET",
+                headers,
+              }
+            );
+
+            if (tracksResponse.ok) {
+              let tracklist = await tracksResponse.json();
+              this.setState({ songs: tracklist.data });
+            }
+          }
+        );
+      }
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  render() {
+    return (
+      <div className="col-12 col-md-9 offset-md-3 mainPage">
+        <Row className="mb-3">
+          <div className="col-9 col-lg-11 mainLinks d-none d-md-flex">
+            <div>TRENDING</div>
+            <div>PODCAST</div>
+            <div>MOODS AND GENRES</div>
+            <div>NEW RELEASES</div>
+            <div>DISCOVER</div>
           </div>
-        </div>
-        <nav class="Page-navigation">
-          <ul class="pagination justify-content-center postionUlArtistPage">
-            <li class="active page-item text-center">
-              <a class="page-link" href="#"
-                >OVERVIEW
-                <div class="link-borderBottom"></div
-              ></a>
-            </li>
-            <li class="page-item text-center">
-              <a class="page-link" href="#"
-                ><div class="link-borderBottom"></div>
-                RELATED ARTISTS</a
+        </Row>
+
+        <Row>
+          <div className="col-12 col-md-10 col-lg-10 mt-5">
+            <h2 className="titleMain">{this.state.artist.name}</h2>
+            <div id="followers">{this.state.artist.nb_fan} followers</div>
+            <div
+              className="d-flex justify-content-center"
+              id="button-container"
+            >
+              <button
+                className="btn btn-success mr-2 mainButton"
+                id="playButton"
               >
-            </li>
-            <li class="page-item text-center">
-              <a class="page-link" href="#"
-                ><div class="link-borderBottom"></div>
-                ABOUT</a
+                PLAY
+              </button>
+              <button
+                className="btn btn-outline-light mainButton"
+                id="followButton"
               >
-            </li>
-          </ul>
-        </nav>
-  
-        <div class="album pl-4">
-          <div class="container">
-            <h2 class="albums-heading mb-3">Albums</h2>
-            <div class="row">
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e02e8b066f70c206551210d902b"
-                    alt="Bohemian Rhapsody (The Original Soundtrack)"
-                  />
-                  <div class="card-body">
-                    <p class="card-text text-center">
-                      Bohemian Rhapsody (The Original Soundtrack)
-                    </p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e02a97714ae03be2b2ff2aa2dbb"
-                    alt="On Air"
-                  />
-  
-                  <div class="card-body">
-                    <p class="card-text text-center">On Air</p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e0282ae0f628e5a39196ac9083b"
-                    alt="A Night At The Odeon"
-                  />
-                  <div class="card-body">
-                    <p class="card-text text-center">A Night At The Odeon</p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e022f3e43381deaf6505880b1f6"
-                    alt="Live At The Rainbow"
-                  />
-                  <div class="card-body">
-                    <p class="card-text text-center">Live At The Rainbow</p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e0256844a498ad89bd43d4756a7"
-                    alt="Live At The Rainbow (Deluxe)"
-                  />
-                  <div class="card-body">
-                    <p class="card-text text-center">
-                      Live At The Rainbow (Deluxe)
-                    </p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e021092d27726b965d04ef427e0"
-                    alt="Hungarian Rhapsody (Live In Budapest / 1986)"
-                  />
-                  <div class="card-body">
-                    <p class="card-text text-center">
-                      Hungarian Rhapsody (Live In Budapest / 1986)
-                    </p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e02f289327ca505f7acc3a3a72f"
-                    alt="The Cosmos Rocks"
-                  />
-                  <div class="card-body">
-                    <p class="card-text text-center">The Cosmos Rocks</p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e02efd5124f95524b047ff71be8"
-                    alt="Queen Rock Montreal"
-                  />
-                  <div class="card-body">
-                    <p class="card-text text-center">Queen Rock Montreal</p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e025cb4de900d6b4d66a778e538"
-                    alt="Return Of The Champions"
-                  />
-                  <div class="card-body">
-                    <p class="card-text text-center">Return Of The Champions</p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e0224c4c0836bde217042af8dbf"
-                    alt="On Fire: Live At The Bowl"
-                  />
-  
-                  <div class="card-body">
-                    <p class="card-text text-center">On Fire: Live At The Bowl</p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e025f8c271d01157fdb59478f14"
-                    alt="Made In Heaven (2011 Remaster)"
-                  />
-                  <div class="card-body">
-                    <p class="card-text text-center">
-                      Made In Heaven (2011 Remaster)
-                    </p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <div class="card mb-4">
-                  <img
-                    src="https://i.scdn.co/image/ab67616d00001e0295b06b0399c5f32d804dbb89"
-                    alt="Made In Heaven (Deluxe Edition 2011 Remaster)"
-                  />
-                  <div class="card-body">
-                    <p class="card-text text-center">
-                      Made In Heaven (Deluxe Edition 2011 Remaster)
-                    </p>
-                    <p class="card-text text-center card-artist">Queen</p>
-                  </div>
-                </div>
-              </div>
+                FOLLOW
+              </button>
             </div>
           </div>
-        </div>
+        </Row>
+        <Row className="mb-3">
+          <Col xs={10}>
+            <div className="mt-4 d-flex justify-content-start">
+              <h2 className="text-white font-weight-bold">Tracks</h2>
+            </div>
+            <div className="pt-5 mb-5">
+              <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3">
+                {this.state.songs?.map((song) => (
+                  <AlbumCard song={song} key={song.id} />
+                ))}
+              </Row>
+            </div>
+          </Col>
+        </Row>
       </div>
-     );
+    );
+  }
 }
- 
+
 export default Artist;
